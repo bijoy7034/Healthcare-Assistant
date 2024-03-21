@@ -1,0 +1,149 @@
+{% extends 'doctor/base.html' %} {% block body %}
+
+<div id="content-wrapper">
+  <div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb" style="background-color: #202020">
+      <li class="breadcrumb-item">
+        <a href="" class="text-success">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active "><a href="{% url 'hospApps' %}" class="text-success">Appointments</a></li>
+      <li class="breadcrumb-item active">Diagnosis</li>
+    </ol>
+
+    <div id="{{d.id}}" class=" conatiner">
+        <td colspan="5">
+          <div class="d-flex justify-content-between">
+            <div class="conatiner">
+              <h3 class="text-success">Details of Diagnosis</h3>
+            <p>Predicted : <span class="text-success">{{d.disease}}</span></p>
+            <p class="text-success">Symptoms</p>
+            <ol class="container">
+              <div class="">
+                <ol class="d-flex justify-content-start">
+                  <div class="mr-4 text-light">
+                    <li>{{d.s1}}</li>
+                  <li>{{d.s2}}</li>
+                  <li>{{d.s3}}</li>
+                  </div>
+                  <div class="ml-5 text-light">
+                    <li>{{d.s4}}</li>
+                    <li>{{d.s5}}</li>
+                  </div>
+                </ol>
+                
+              </div>
+            </ol>
+            </div>
+            <div class="p-5"></div>
+            <div class="container pl-5">
+              <h3 class="text-success">Vitals</h3>
+              <p class="text-success">Vitals at the time of Diagnosis</p>
+              <ul>
+              
+                <li class="text-secondary">Pressure (Systolic) : <span class="text-light">{{d.blood_low}} mmHg</span></li>
+                <li class="text-secondary">Pressure (Daistolic) : <span class="text-light">{{d.blood_high}}mmHg</span></li>
+                <li class="text-secondary">Weight :  <span class="text-light">{{d.weight}} Kg</span></li>
+                <li class="text-secondary">Diagnosised Time :  <span class="text-light">{{d.created_on}}</span></li>
+                
+              </ul>
+            </div>
+            <div class="container">
+              
+              
+              {% if a.appointment == 'advice' %}
+
+              <p></p>
+              
+              {% else %}
+              {% if a.my_time_field == null %}
+              <button class="btn rounded-circle btn-success" data-toggle="modal" data-target="#exampleModal"><i class="fa-regular fa-clock"></i></button>
+              {% else %}
+              <span class="text-light">Appointment Time:</span>
+              <p class="text-success">{{a.my_time_field}}</p>
+              {% endif %}
+              {% endif %}
+                
+                
+              <br>
+
+            </div>
+          </div>
+          <p>Medicine Predicted : </p>
+          <span class="mr-4 text-light">{{d.medicine}}</span> <span class="text-light">{{d.medicine2}}</span>
+          <br>
+          
+          {% for profile in p %}
+          <div class="container-fluid ">
+            <table class="table text-light table-dark profile_table col-md-8 p-5" style="background-color: #202020; border-radius: 14px;" >
+                <tr style="">
+                  <td style="border: none !important; width: max-content;" class="text-success">Height</td>
+                  <td style="border: none !important;">:</td>
+                  <td style="border: none !important;">{{profile.height}} cm</td>
+                </tr>
+                <tr style="">
+                  <td style="border: none !important;" class="text-success">Gender</td>
+                  <td style="border: none !important;">:</td>
+                  <td style="border: none !important;">{{profile.gender}}</td>
+                </tr>
+                <tr style="">
+                    <td style="border: none !important;" class="text-success">Blood Group</td>
+                    <td style="border: none !important;">:</td>
+                    <td style="border: none !important;">{{profile.blood_type}}</td>
+                  </tr>
+                <tr style="">
+                  <td style="border: none !important;" class="text-success">Medications (Present)</td>
+                  <td style="border: none !important;">:</td>
+                  <td style="border: none !important;">{{profile.medications}}</td>
+                </tr>
+                <tr style="">
+                  <td style="border: none !important;" class="text-success">Past Medical Conditions</td>
+                  <td style="border: none !important;">:</td>
+                  <td style="border: none !important;">{{profile.past_medical}}</td>
+                </tr>
+                <tr style="">
+                  <td style="border: none !important;" class="text-success">Family Medical History</td>
+                  <td style="border: none !important;">:</td>
+                  <td style="border: none !important;">{{profile.family_history}}</td>
+                </tr>
+                <br>
+              </table>
+          </div>
+          {% endfor %}
+            
+        </div>
+
+
+    </div>
+  </div>
+
+
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: #202020;">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-success" id="exampleModalLabel">Select Date and Time</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="text-light" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        {% csrf_token %}
+        <form action="" method="POST">
+        
+        <input style="width: 100%; background-color:gray; padding: 5px; border: #202020; border-radius: 10px;" type="datetime-local" id="birthdaytime" name="datetime">
+
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+  {% endblock %}
+</div>

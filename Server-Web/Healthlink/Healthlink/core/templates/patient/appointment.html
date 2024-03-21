@@ -1,0 +1,104 @@
+{% extends 'patient/base.html' %}
+
+{% block body %}
+<div id="content-wrapper">
+    <div class="container-fluid">
+        <ol class="breadcrumb" style="background-color: #20202097;">
+          <li class="breadcrumb-item">
+              <a href="">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item"><a href="{% url 'result' %}">Diagnosised Results</a></li>
+          <li class="breadcrumb-item active">Appointment</li>
+      </ol>
+      <form action="" method="POST">
+      {% csrf_token %}
+            <span class="text-primary">Select a doctor to get more information.</span><br>
+            <span class="text-secondary">Select the Hospital and other details and also verify the digonisis details'</span><br><br>
+            <div class="">
+              <div class="input-group">
+                <select name="hosp" class="custom-select bg-transparent border-transparent text-light" id="hospital-select">
+                  <option value="" selected>Select Hospital</option>
+                  {% for h in Hospitals %}
+                  <option value="{{ h.Hospital_Name }}">{{ h.Hospital_Name }} Hospital, {{ h.District }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-between">
+              <div class="input-group">
+                <select name="doctor" class="custom-select bg-transparent border-transparent text-light" id="doctor-select">
+                  <option value="null">Select Doctor</option>
+                </select>
+              </div>
+              <div class="p-2"></div>
+              <div class="input-group">
+                <select id="appointment-select" name="app" class="custom-select bg-transparent border-transparent text-light" >
+                  <option value="null" selected>Mode of Appointmnet</option>
+                  <option value="online">Online</option>
+                  <option value="offline">Offline</option>
+                  <option value="advice">Advice</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div id="{{d.id}}" class="conatiner">
+                <td colspan="5">
+                  <div class="d-flex justify-content-between">
+                    <div class="conatiner">
+                      <h3 class="text-primary">Details of Diagnosis</h3>
+                    <p>Predicted : <span class="text-primary">{{d.disease}}</span></p>
+                    <p class="text-primary">Symptoms</p>
+                    <ol class="container">
+                      <div class="text-light">
+                        <ol class="d-flex justify-content-start">
+                          <div class="mr-4">
+                        <li>{{d.s1}}</li>
+                          <li>{{d.s2}}</li>
+                          <li>{{d.s3}}</li>
+                          </div>
+                          <div class="ml-5">
+                            <li>{{d.s4}}</li>
+                            <li>{{d.s5}}</li>
+                          </div>
+                        </ol>
+                        
+                      </div>
+                    </ol>
+                    </div>
+                    <div class="p-5"></div>
+                    <div class="container pl-5">
+                      <h3 class="text-primary">Vitals</h3>
+                      <p class="text-primary">Vitals at the time of Diagnosis</p>
+                      <ul>
+                      
+                        <li class="text-secondary">Pressure (Systolic) : <span class="text-light">{{d.blood_low}} mmHg</span></li>
+                        <li class="text-secondary">Pressure (Daistolic) : <span class="text-light">{{d.blood_high}}mmHg</span></li>
+                        <li class="text-secondary">Weight :  <span class="text-light">{{d.weight}} Kg</span></li>
+                        <li class="text-secondary">Diagnosised Time :  <span class="text-light">{{d.created_on}}</span></li>
+                        
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </div>
+              <p>Medicine Predicted : </p>
+              <span class="mr-4 text-light">{{d.medicine}}</span> <span class="text-light">{{d.medicine2}}</span>
+              <br><br>
+              <div class="model-footer border-0">
+                <button type="submit" class="btn btn-primary mr-3">Request</button>
+             </div>
+        </div>
+        <br>
+         
+      </form>
+
+
+
+
+
+
+    </div>
+</div>
+
+{% endblock %}

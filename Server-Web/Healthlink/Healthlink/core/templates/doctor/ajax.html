@@ -1,0 +1,102 @@
+<script type="text/javascript">
+$(document).ready(function(){
+		
+	$('#datetimepicker').datetimepicker({
+		format: 'YYYY-MM-DD HH:mm:ss', // Customize the format as per your requirement
+		icons: {
+			time: 'fa fa-clock',
+			date: 'fa fa-calendar',
+			up: 'fa fa-chevron-up',
+			down: 'fa fa-chevron-down',
+			previous: 'fa fa-chevron-left',
+			next: 'fa fa-chevron-right',
+			today: 'fa fa-calendar-check-o',
+			clear: 'fa fa-trash',
+			close: 'fa fa-times'
+		}
+	});
+
+	$('.doctor-advice-btn').click(function () {
+		var rowId = $(this).closest('tr').attr('id');
+		$('#modal-row-id').text(rowId);
+	  });
+
+  // Recommend Drug
+  $('#tbody').on("click", ".btn_recommend", function(){
+  	console.log('Button Recommend Drug Clicked');
+	let disease = $(this).attr("data-sid");
+	var userid = $('#tbody #user_id').val();
+
+
+	console.log('Prediction ID is',disease);
+	console.log('User ID is',userid);
+
+
+	mydata = {disease:disease, userid:userid};
+		$.ajax({
+			url: "",
+			method: "POST",
+			data:mydata,
+
+			success:function(data){
+				console.log('Data Sent To The Backend');
+
+			}
+		});
+  });
+
+
+
+
+
+  // Arrange Appointment
+  $('#mytable').on("click", ".btn_plan", function(){
+  	console.log('Button Appointment Clicked');
+	let disease = $(this).attr("data-sid");
+
+	$('#prediction_id').val(disease);
+
+	console.log('Prediction ID is',disease);
+
+  });
+
+
+
+
+  // Recommend Drug
+  $('#myform').on("click", ".modal_ment", function(){
+  	console.log('Button Modal Clicked');
+  	var pk = $('#prediction_id').val();
+  	console.log('Prediction ID is',pk);
+
+
+  	var day = $('#myform #day').val();
+  	var time = $('#myform #time').val();
+  	console.log('Day is ',day);
+  	console.log('Time is ',time);
+
+
+
+	    mydata = {pk:pk, day:day, time:time};
+		$.ajax({
+			url: "",
+			method: "POST",
+			data:mydata,
+
+			success:function(data){
+				console.log('Data Sent To The Backend');
+				//$('#form').hide();
+
+			}
+		});
+  });  
+
+
+  // script.js
+
+
+
+
+
+});
+</script>

@@ -1,0 +1,57 @@
+{% extends 'patient/base.html' %}
+
+{% block body %}
+
+
+ <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb" style="background-color: #202020;">
+              <li class="breadcrumb-item">
+                  <a href="">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item active">Profile</li>
+          </ol>
+
+          <h4 class="text-light">Account Details</h4>
+          <br>
+          <div class="container p-3" style="background-color: #202020; border-radius: 10px;">
+            <div class="d-sm-flex justify-space-between align-items-center ">
+            <div class="col-sm-3">
+                <center>  <i class="fa-solid fa-user text-primary" style="font-size: 150px;"></i></center>
+                </div>
+                <div class="col-sm-6">
+
+                    <h2 class="text-primary">{{user.username}}</h2>
+                    
+                    {% for p in profile  %}
+                        <p>Mobile : {{p.phonenumber}}</p>
+                        <p>Email : {{p.email}}</p>
+                        <p>Region : {{p.region}}</p>
+                        <p>Country : {{p.country}}</p>
+
+                    {% endfor %}
+                        
+                </div>
+                <div></div>
+                <div class="col-sm-3">
+                    <button class="btn btn-outline-success btn-block"><i class="fa-solid fa-pen-to-square p-1"></i> Edit Account</button>
+                    <button class="btn btn-outline-primary btn-block"><i class="fa-solid fa-gear p-1"></i> Settings</button>
+                    <button class="btn btn-outline-danger btn-block"><i class="fa-solid fa-right-from-bracket p-1"></i> Logout</button>
+                </div>
+                
+            </div>
+          </div>
+
+          
+
+
+              
+ </div>
+ </div>
+
+
+{% endblock %}
+

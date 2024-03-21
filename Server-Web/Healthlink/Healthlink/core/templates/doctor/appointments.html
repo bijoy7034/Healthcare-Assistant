@@ -1,0 +1,57 @@
+{% extends 'doctor/base.html' %} {% block body %}
+
+<div id="content-wrapper">
+  <div class="container-fluid">
+    <ol class="breadcrumb" style="background-color: #202020">
+      <li class="breadcrumb-item">
+        <a href="" class="text-success">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">Appointments</li>
+    </ol>
+
+
+    <div class="container">
+      <div class="d-flex justify-content-between">
+        <h4 class="text-light">Appointments</h4>
+      </div>
+    </div>
+    <br>
+    <div class="container" style="height: 400px;">
+    <div class="table-container">
+        <table class="table table-dark text-light" style="background-color: transparent;">
+            <thead class="text-success">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Patient</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Diagnosis</th>
+                    <th scope="col">Mode</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in apps %}
+                <tr>
+                    <td>{{ a.appointment }}</td>
+                    <td>{{a.patient}}</td>
+                    <td>{{a.doctor}}</td>
+                    <td class="justify-content-center"><a href="{% url 'appDet' param1=a.med param2=a.pat param3=a.appointment %}"><button class="btn  btn-success rounded-circle"><center><i class="fa-regular fa-file"></i></center></button></a></td>
+                    <td>{{a.mode}}</td>
+                    <td>
+                        <button class="btn btn-success btn-sm m-2 rounded-circle"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="btn btn-warning btn-sm m-2 rounded-circle"><i class="fa-regular fa-clock"></i></button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+                
+        </table>
+    </div>
+   </div>
+
+
+    </div>
+  </div>
+
+  {% endblock %}
+</div>

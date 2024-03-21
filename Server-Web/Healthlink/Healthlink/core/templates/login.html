@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="box" style="">
+    <h2>Login</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="inputBox">
+            <input type="text" name="username" required="" id="org" required="" value="" name="username">
+            <label for="">Username</label>
+        </div>
+        <div class="inputBox">
+            <input type="password" value="" name="password" required="">
+            <label for="">Password</label>
+        </div>
+        <br>
+        <button type="submit" id="login_btn" class="btn btn-outline-primary btn-lg btn-block">Login</button>
+        <br><br>
+        <div class="form-group">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+
+                <div class="alert alert-dark alert-dismissible fade show" style="color:red;"> {{ message }}</div>
+
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+<footer class="bg-transparent text-center text-lg-start fixed-bottom">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+       Login as Doctor <span class="mr-3"></span><a class="text-body" href="{% url 'docLogin' %}">
+        <button class="btn btn-sm btn-outline-primary">Login</button>
+      </a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+
+{% endblock %}
+
+

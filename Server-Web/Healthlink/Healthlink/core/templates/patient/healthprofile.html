@@ -1,0 +1,263 @@
+{% extends 'patient/base.html' %} {% block body %}
+
+<div id="content-wrapper">
+  <div class="container-fluid">
+    <ol class="breadcrumb" style="background-color: #202020">
+      <li class="breadcrumb-item">
+        <a href="">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">Medical Profile</li>
+    </ol>
+
+    {% if health == '0' %}
+    <div
+      class="alert text-danger border border-danger"
+      role="alert"
+      style="background-color: #202020"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="alert-heading">Medical Profile Not Found!!</h4>
+          <p>
+            Medical Profile not created yet!! Create your medical profile to
+            experience health insights <br />
+            and more accurate prediction and care
+          </p>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target=".bd-example-modal-lg"
+          >
+            Create Medical Profile
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {% else %}
+
+    <div class="container" >
+      <div class="d-flex justify-content-between align-items-center">
+        <h3>Medical Profile</h3>
+        <br><br>
+        <div>
+          <button class="btn btn-primary" data-toggle="modal"
+          data-target=".bd-example-modal-lg"><i class="fa-solid fa-pen-to-square"></i> Update</button>
+          <a href="{% url 'weight' %}"><button class="btn btn-success"><i class="fa-solid fa-person-walking"></i> Goals</button></a>
+        </div>
+      </div>
+      <div class="row">
+        <table class="table w-50 text-light table-dark profile_table col-md-8 p-5" style="background-color: #202020; border-radius: 14px;" >
+          <tr style="">
+            <td style="border: none !important; width: max-content;" class="text-primary">Height</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.height}} cm</td>
+          </tr>
+          <tr style="">
+            <td style="border: none !important;" class="text-primary">Weight</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.weight}} kgs</td>
+          </tr>
+          <tr style="">
+            <td style="border: none !important;" class="text-primary">Gender</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.gender}}</td>
+          </tr>
+          <tr style="">
+            <td style="border: none !important;" class="text-primary">Blood Type</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.blood_type}}</td>
+          </tr>
+          <tr style="">
+            <td style="border: none !important;" class="text-primary">Blood Pressure (SYSTOLIC)</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.blood_low}} mmHg</td>
+          </tr>
+          <tr style="">
+            <td style="border: none !important;" class="text-primary">Blood Pressure (DIASTOLIC)</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.blood_high}} mmHg</td>
+          </tr>
+          <tr style="">
+            <td style="border: none !important;" class="text-primary">Medications (Present)</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.medications}}</td>
+          </tr>
+          <tr style="">
+            <td style="border: none !important;" class="text-primary">Past Medical Conditions</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.past_medical}}</td>
+          </tr>
+          <tr style="">
+            <td style="border: none !important;" class="text-primary">Family Medical History</td>
+            <td style="border: none !important;">:</td>
+            <td style="border: none !important;">{{profile.family_history}}</td>
+          </tr>
+          <br>
+        </table>
+        <div></div>
+        <div class="container col-md-3 align-items-center" style="background-color: #202020; border-radius: 14px;">
+          <div class="container">
+            <h3 class="text-primary">Insights</h3>
+            <div class="alert border-dark">
+              <p class="text-light" data-toggle="tooltip" data-placement="top" title="Tooltip on top">BMI : {{profile.bmi}}</p>
+            {% if profile.bmi < 18.5 %}
+              <span class="text-warning">Underweight</span>
+            {% elif profile.bmi > 18.5  and profile.bmi < 24.9 %}
+              <span class="text-success h5">Normal weight</span>
+            {% elif profile.bmi > 25  and profile.bmi < 29.9 %}
+              <span class="text-danger">Overweight</span>
+            {% else %}
+             <span class="text-danger">Obesity</span>
+            {% endif %}
+            </div>
+
+            
+              
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    {% endif %}
+  </div>
+</div>
+
+{% comment %} modal {% endcomment %}
+
+<div
+  class="modal fade bd-example-modal-lg text-light"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div
+      class="modal-content"
+      style="background-color: #171717; border-radius: 18px"
+    >
+      <div class="modal-header border-0">
+        <h4 class="modal-title text-primary" id="exampleModalLongTitle">
+          Health Profile
+        </h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true" style="color: aliceblue">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" class="container p-2">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col">
+              <label for="exampleFormControlInput1">Height (Cm)</label>
+              <input type="number" name="height" class="form-control" />
+            </div>
+            <div class="col">
+              <label for="exampleFormControlInput1">Weight (Kg)</label>
+              <input type="number" name="weight" class="form-control" />
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col">
+              <label for="exampleFormControlInput1"
+                >Allergic (If yes give details)</label
+              >
+              <input type="text" name="allergic" class="form-control" />
+            </div>
+            <div class="col">
+              <label for="exampleFormControlInput1">Blood Group</label>
+              <input
+                type="text"
+                name="group"
+                list="group"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <datalist id="group">
+            <option value="A+">A+</option>
+            <option value="B+">B+</option>
+            <option value="O+">O+</option>
+            <option value="AB+">AB+</option>
+            <option value="A-">A-</option>
+            <option value="B-">B-</option>
+            <option value="O-">O-</option>
+            <option value="AB-">AB-</option>
+          </datalist>
+          <br />
+          <div class="row">
+            <div class="col">
+              <label for="exampleFormControlInput1">Blood Pressure (Low)</label>
+              <input type="number" name="low" class="form-control" />
+            </div>
+            <div class="col">
+              <label for="exampleFormControlInput1"
+                >Blood Pressure (High)</label
+              >
+              <input type="number" name="high" class="form-control" />
+            </div>
+          </div>
+          <br />
+          <div class="form-group">
+            <label for="exampleFormControlInput1"
+              >Any Medications(If yes give their names)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="meds"
+              id="exampleFormControlInput1"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1"
+              >Family History (If yes give details)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="fam"
+              id="exampleFormControlInput1"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1"
+              >Past Medical Conditions (If yes give details)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="past"
+              id="exampleFormControlInput1"
+            />
+          </div>
+
+          <div class="modal-footer border-0">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

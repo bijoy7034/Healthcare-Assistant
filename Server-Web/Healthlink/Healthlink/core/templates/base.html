@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link href="{% static 'core/css/home.css' %}" rel="stylesheet">
+
+</head>
+
+<header class="header">
+    <nav style="box-shadow: none" class="navbar">
+      <h1 class="logo">Health<span style="font-size: 1.5rem">Link</span></h1>
+      <ul class="nav-links">
+        <li><a href="{% url 'home'%}">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="{% url 'reg' %}">Register</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+      </ul>
+      <div class="hamburger-menu">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+    </nav>
+    {% block body %}
+
+    {% endblock %}
+   
+
+    
+  </header>
+
+<body>
+
+   
+
+    <script src="{% static 'core/js/jquery.js' %}"></script>
+    <script src="{% static 'core/js/popper.js' %}"></script>
+    <script src="{% static 'core/js/bootstrap.js' %}"></script>
+    {% include 'ajax.html' %}
+</body>
+
+</html>

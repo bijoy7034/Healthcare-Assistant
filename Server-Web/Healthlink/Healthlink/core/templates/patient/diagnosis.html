@@ -1,0 +1,158 @@
+{% extends 'patient/base.html' %} {% load static %} {% block body %}
+
+<div id="content-wrapper">
+  <div class="container-fluid">
+    <ol class="breadcrumb" style="background-color: #20202097">
+      <li class="breadcrumb-item">
+        <a href="">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">Disease Prediction</li>
+    </ol>
+
+    <!-- Icon Cards-->
+    <div class="row">
+      <div class="card-body">
+        <h5 class="card-title text-primary">Please Fill In Your Symptoms</h5>
+        <br />
+
+        <form method="POST" action="" class="myform">
+          {% csrf_token %}
+
+          <input type="hidden" value="{{ user.id }}" name="" id="user_id" />
+          <div class="form-group row">
+            <label for="Symptom" class="col-sm-2 col-form-label text-light"
+              >1st Symptom</label
+            >
+            <div class="col-sm-6">
+              <input
+                type="text"
+                class="form-control"
+                list="symp"
+                multiple="multiple"
+                name="Symptom1"
+                id="Symptom1"
+                placeholder="Please Choose Symptom"
+                required=""
+              />
+            </div>
+            <datalist id="symp">
+              {% for symp in symptoms %}
+              <option value="{{symp}}">{{symp}}</option>
+              {% endfor %}
+            </datalist>
+          </div>
+
+          <div class="form-group row">
+            <label for="Symptom2" class="col-sm-2 col-form-label text-light"
+              >2nd Symptom</label
+            >
+            <div class="col-sm-6">
+              <input
+                type="text"
+                class="form-control"
+                list="symp"
+                name="Symptom2"
+                id="Symptom2"
+                placeholder="Please Choose Symptom"
+                required=""
+              />
+            </div>
+            <datalist id="symp">
+              {% for symp in symptoms %}
+              <option value="{{symp}}">{{symp}}</option>
+              {% endfor %}
+            </datalist>
+          </div>
+
+          <div class="form-group row">
+            <label for="Symptom3" class="col-sm-2 col-form-label text-light"
+              >3rd Symptom</label
+            >
+            <div class="col-sm-6">
+              <input
+                type="text"
+                class="form-control"
+                list="symp"
+                name="Symptom3"
+                id="Symptom3"
+                placeholder="Please Choose Symptom"
+                required=""
+              />
+            </div>
+            <datalist id="symp">
+              {% for symp in symptoms %}
+              <option value="{{symp}}">{{symp}}</option>
+              {% endfor %}
+            </datalist>
+          </div>
+
+          <div class="form-group row">
+            <label for="Symptom4" class="col-sm-2 col-form-label text-light"
+              >4th Symptom</label
+            >
+            <div class="col-sm-6">
+              <input
+                type="text"
+                class="form-control"
+                multiple="multiple"
+                list="symp"
+                id="Symptom4"
+                name="Symptom4"
+                placeholder="Please Choose Symptom"
+                required=""
+              />
+            </div>
+            <datalist id="symp">
+              {% for symp in symptoms %}
+              <option value="{{symp}}">{{symp}}</option>
+              {% endfor %}
+            </datalist>
+          </div>
+
+          <div class="form-group row">
+            <label for="Symptom5" class="col-sm-2 col-form-label text-light"
+              >5th Symptom</label
+            >
+            <div class="col-sm-6">
+              <input
+                type="text"
+                class="form-control"
+                list="symp"
+                id="Symptom5"
+                name="Symptom5"
+                placeholder="Please Choose Symptom"
+                required=""
+              />
+            </div>
+            <datalist id="symp">
+              {% for symp in symptoms %}
+              <option value="{{symp}}">{{symp}}</option>
+              {% endfor %}
+            </datalist>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+              <button type="button" class="btn btn-primary" id="predict_btn">
+                Predict
+              </button>
+            </div>
+          </div>
+          <br><br>
+
+          {% comment %} <h2 id="result" class="col-sm-10 offset-sm-3"></h2> {% endcomment %}
+         <center>
+           <div class="alert alert" style="background-color: rgb(12, 56, 149,0.5); width: 80%;" role="alert">
+            <b>
+              <h4 class="alert-heading" id="result"></h4>
+            </b>
+            <br>
+            <p class="text-secondary">**It is important to note that HealthLink is in an ongoing learning process, and its predictions may not always be accurate or up-to-date.</p>
+         </center>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

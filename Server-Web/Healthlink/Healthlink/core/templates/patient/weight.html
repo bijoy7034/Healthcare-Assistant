@@ -1,0 +1,116 @@
+{% extends 'patient/base.html' %} {% block body %}
+
+<div id="content-wrapper">
+  <div class="container-fluid">
+    <ol class="breadcrumb" style="background-color: #202020">
+      <li class="breadcrumb-item">
+        <a href="">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'med_pro' %}">Medical Profile</a>
+      </li>
+      <li class="breadcrumb-item active">Daily Analysis</li>
+    </ol>
+
+    {% if today == '0' %}
+    <div class="container-fluid">
+      <h3>Enter Todays Insights</h3>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-3">
+            <input
+              type="number"
+              name="weight"
+              class="form-control"
+              placeholder="Enter Weight"
+            />
+          </div>
+          <div class="col-md-2">
+            <input
+              type="number"
+              name="low"
+              class="form-control"
+              placeholder="Presure (Systolic)"
+            />
+          </div>
+          <div class="col-md-2">
+            <input
+              type="number"
+              name="high"
+              class="form-control"
+              placeholder="Presure (Diastolic)"
+            />
+          </div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              name="hr"
+              class="form-control"
+              placeholder="Hours of sleep"
+            />
+          </div>
+
+          <div class="col-md-1">
+            <button type="submit" class="btn btn-success">
+              <i class="fa-solid fa-floppy-disk"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <br><br>
+    {% else %}
+    <div
+      class="alert text-success border border-success"
+      role="alert"
+      style="background-color: #202020"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h4 class="alert-heading">
+            Todays Insights are Uploaded
+            <i class="fa-regular fa-calendar-check"></i>
+          </h4>
+          <p>
+            If you wish to customize or add insights based on different time
+            intervals, please navigate to the settings <br />
+            where you can tailor them to your preferences.
+          </p>
+        </div>
+        <div>
+          <a href="{% url 'set' %}">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-toggle="modal"
+              data-target=".bd-example-modal-lg"
+            >
+              Change Time Intervals
+            </button>
+          </a>
+        </div>
+        <div></div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="container d-flex justify-content-between">
+      <div
+      id="chart2"
+      class="p-2"
+      style="width: 100%; background-color: #202020; border-radius: 20px;"
+    ></div>
+    <div class="p-4"></div>
+    <div
+      id="chart3"
+      class="p-2"
+      style="width: 100%; background-color: #202020; border-radius: 20px"
+    ></div>
+    </div>
+    
+    
+    <br />
+  </div>
+</div>
+
+{% endblock %}
